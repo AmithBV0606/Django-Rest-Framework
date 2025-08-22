@@ -11,4 +11,5 @@ def students(request):
         }
     ]
     # return HttpResponse("<h2>Students Page!!</h2>")
+    # return HttpResponse(students)
     return HttpResponse(f'<h2>{student[0]}</h2>')
