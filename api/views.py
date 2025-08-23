@@ -134,5 +134,9 @@ class Employees(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Generic
     def post(self, request):
         return self.create(request)
 
-class EmployeeDetails(generics.GenericAPIView):
-    pass
+class EmployeeDetails(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
