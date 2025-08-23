@@ -140,3 +140,6 @@ class EmployeeDetails(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins
 
     def get(self, request, pk):
         return self.retrieve(request, pk)
+
+    def put(self, request, pk):
+        return self.update(request, pk)
