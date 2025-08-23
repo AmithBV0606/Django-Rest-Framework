@@ -118,4 +118,30 @@ Example : http://127.0.0.1:8000/v1/students/
 
 - Class based views takes away conditional checks that we've been using in function based views.
 
-- In Class based views we can use instance methods like `get()`, `post()`, `put()` and `delete()`
+- In Class based views we can use instance methods like `get()`, `post()`, `put()` and `delete()`.
+
+### Mixins :
+
+- Mixins are reusable code classes in object oriented programming that provide specific functionalities.
+
+- In Django REST Framework, mixins are used to add common functionality to views. Like CRUD operation functions
+
+### Types of Mixins :
+
+- ListModelMixin = list()
+
+- CreateModelMixin = create()
+
+- RetriewModelMixin = retrieve()
+
+- UpdateModelMixin = update()
+
+- DestroyModelMixin = destroy()
+
+### Generic API View :
+
+- Acts as a foundational class for building most API views.
+
+- It provides essential functionalities for handling incoming HTTP requests such as get, post, put and delete request.
+
+- It also formats the outgoing responses in a structured way.
