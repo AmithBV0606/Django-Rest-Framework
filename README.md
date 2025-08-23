@@ -111,3 +111,11 @@ Example : http://127.0.0.1:8000/v1/students/
 - It's the reverse of serialization.
 
 - The data received from the client, usually in JSON format is converted back into the model instance or a query set.
+
+### Class Based Views :
+
+- Class based views provide more structured and organized way to handle request using Object-Oriented principles.
+
+- Class based views takes away conditional checks that we've been using in function based views.
+
+- In Class based views we can use instance methods like `get()`, `post()`, `put()` and `delete()`
