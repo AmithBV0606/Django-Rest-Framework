@@ -9,5 +9,8 @@ urlpatterns = [
     path('students/<int:pk>/', views.studentDetailView),
 
     # Employee App based routes :
-    path('employees/', views.Employees.as_view())
+    path('employees/', views.Employees.as_view()),
+
+    # To get an individual employee at once :
+    path('employees/<int:pk>', views.EmployeeDetails.as_view())
 ]

@@ -10,6 +10,8 @@ from rest_framework.views import APIView
 from employees.models import Employee
 from .serializers import EmployeeSerializer, StudentSerializer
 
+from django.http import Http404
+
 # Static Data JSON response :
 # def studentsView(request):
 #     # student = {
@@ -71,8 +73,9 @@ def studentDetailView(request, pk):
         student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# Class based views demo :
+# ______________________________________________________________________
 
+# Class based views demo :
 class Employees(APIView):
     def get(self, request): # Member function instance method
         employees = Employee.objects.all()
@@ -84,4 +87,19 @@ class Employees(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class EmployeeDetails(APIView):
+    # To get individual employee
+    def get_object(self, pk):
+        try:
+            employee = Employee.objects.get(pk=pk)
+            return employee
+        except Employee.doesNotExist:
+            raise Http404
+
+    # To serve that individual employee details :
+    def get(self, request, pk):
+        employee = self.get_object(pk)
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_200_OK)
