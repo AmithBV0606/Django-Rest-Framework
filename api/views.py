@@ -14,25 +14,39 @@ from django.http import Http404
 
 from rest_framework import mixins, generics
 
+# Students database operation
+
 # Static Data JSON response :
-# def studentsView(request):
-#     # student = {
-#     #     'id': 1,
-#     #     'name': 'Amith',
-#     #     'class': 'CS'
-#     # }
-#     return JsonResponse(student)
+"""
+def studentsView(request):
+    student = {
+        'id': 1,
+        'name': 'Amith',
+        'class': 'CS'
+    }
+    return JsonResponse(student)
+"""
+
+# ______________________________________________________________________
 
 # Dynamic data coming from DB as JSON response : This won't work
-# def studentsView(request):
-#     students = Student.objects.all()
-#     return JsonResponse(students, safe=False)
+"""
+def studentsView(request):
+    students = Student.objects.all()
+    return JsonResponse(students, safe=False)
+"""
+
+# ______________________________________________________________________
 
 # Manual Serialization : Converting the Query Set into the list
-# def studentsView(request):
-#     students = Student.objects.all()
-#     students_list = list(students.values())
-#     return JsonResponse(students_list, safe=False)
+"""
+def studentsView(request):
+    students = Student.objects.all()
+    students_list = list(students.values())
+    return JsonResponse(students_list, safe=False)
+"""
+
+# ______________________________________________________________________
 
 # NOTE : If you want your view to be accessed by only specific request type, we can use "api_view"
 
@@ -77,53 +91,59 @@ def studentDetailView(request, pk):
 
 # ______________________________________________________________________
 
+# Employee database operations
+
 # Class based views demo :
-# class Employees(APIView):
-#     def get(self, request): # Member function instance method
-#         employees = Employee.objects.all()
-#         serializer = EmployeeSerializer(employees, many=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
+"""
+class Employees(APIView):
+    def get(self, request): # Member function instance method
+        employees = Employee.objects.all()
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-#     def post(self, request):
-#         serializer = EmployeeSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request):
+        serializer = EmployeeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class EmployeeDetails(APIView):
-#     # To get individual employee
-#     def get_object(self, pk):
-#         try:
-#             employee = Employee.objects.get(pk=pk)
-#             return employee
-#         except Employee.doesNotExist:
-#             raise Http404
+class EmployeeDetails(APIView):
+    # To get individual employee
+    def get_object(self, pk):
+        try:
+            employee = Employee.objects.get(pk=pk)
+            return employee
+        except Employee.doesNotExist:
+            raise Http404
 
-#     # To serve that individual employee details :
-#     def get(self, request, pk):
-#         employee = self.get_object(pk)
-#         serializer = EmployeeSerializer(employee)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
+    # To serve that individual employee details :
+    def get(self, request, pk):
+        employee = self.get_object(pk)
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-#     # Update the individual employee :
-#     def put(self, request, pk):
-#         employee = self.get_object(pk)
-#         serializer = EmployeeSerializer(employee, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         else:
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Update the individual employee :
+    def put(self, request, pk):
+        employee = self.get_object(pk)
+        serializer = EmployeeSerializer(employee, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#     # Delete an individual employee :
-#     def delete(self, request, pk):
-#         employee = self.get_object(pk)
-#         employee.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+    # Delete an individual employee :
+    def delete(self, request, pk):
+        employee = self.get_object(pk)
+        employee.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+"""
 
 # ______________________________________________________________________
 
+# Mixins
+"""
 class Employees(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
@@ -146,3 +166,14 @@ class EmployeeDetails(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins
 
     def delete(self, request, pk):
         return self.destroy(request, pk)
+"""
+# ______________________________________________________________________
+
+# Generics
+# class Employees(generics.ListAPIView, generics.CreateAPIView):
+class Employees(generics.ListCreateAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+class EmployeeDetails(generics.RetrieveAPIView):
+    pass
