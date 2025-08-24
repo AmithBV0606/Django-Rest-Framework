@@ -145,3 +145,23 @@ Example : http://127.0.0.1:8000/v1/students/
 - It provides essential functionalities for handling incoming HTTP requests such as get, post, put and delete request.
 
 - It also formats the outgoing responses in a structured way.
+
+### Generics Overview : 
+
+- Using the mixin classes we've rewritten the views to use slightly less code than before, but we can go one step further. 
+
+- REST framework provides a set of already mixed-in generic views that we can use to trim down our `views.py` module even more.
+
+### Pre-built generics view class :
+
+- ListAPIView               →  For listing the objects
+- CreateAPIView             →  For creating the objects
+- RetrieveAPIView           →  For retrieving a single object using pk
+- UpdateAPIView             →  For updating a single object using pk
+- DestroyAPIView            →  For deleting an object using pk
+
+**Combination of API Views :** To perform more than one crud operation
+
+- ListCreateAPIView         →  For listing and creating objects
+- RetrieveUpdateAPIView     →  For retrieving & updating objects using pk
+- RetrieveUpdateDestroyAPIView →  For retrieving, updating & deleting objects using pk
