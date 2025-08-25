@@ -231,6 +231,7 @@ class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     pagination_class = CustomPagination
+    filterset_fields = ['designation']
 
 # ______________________________________________________________________
 

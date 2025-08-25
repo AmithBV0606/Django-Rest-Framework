@@ -270,3 +270,37 @@ REST_FRAMEWORK = {
     - `max_limit` - If set this is a numeric value indicating the maximum allowable limit that may be requested by the client. Defaults to None.
 
     - `template` - The name of a template to use when rendering pagination controls in the browsable API. May be overridden to modify the rendering style, or set to None to disable HTML pagination controls completely. Defaults to `"rest_framework/pagination/numbers.html"`.
+
+### Filtering :
+
+- The root QuerySet provided by the Manager describes all objects in the database table. Usually, though, you'll need to select only a subset of the complete set of objects.
+
+- The default behavior of REST framework's generic list views is to return the entire queryset for a model manager. Often you will want your API to restrict the items that are returned by the queryset.
+
+- The simplest way to filter the queryset of any view that subclasses `GenericAPIView` is to override the `.get_queryset()` method.
+
+- Overriding this method allows you to customize the queryset returned by the view in a number of different ways.
+
+### Types of filter :
+
+1. Global Filters (Default Filter) :
+```py
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+```
+
+2. Custom Filters
+
+**Filtering Use Cases** :
+
+- Use Case 1: Filter Employees by Designation
+    - Criteria: Retrieve all employees with the designation "Software Engineer."
+
+- Use Case 2: Filter Employees by Name
+    - Criteria: Retrieve all employees whose names contain the word "John."
+
+- Use Case 3: Filter Employees by ID Range
+    - Criteria: Retrieve all employees with IDs between "EMP002" and "EMP006."
