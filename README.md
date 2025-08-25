@@ -165,3 +165,15 @@ Example : http://127.0.0.1:8000/v1/students/
 - ListCreateAPIView         →  For listing and creating objects
 - RetrieveUpdateAPIView     →  For retrieving & updating objects using pk
 - RetrieveUpdateDestroyAPIView →  For retrieving, updating & deleting objects using pk
+
+### Viewsets Introduction :
+
+- Combines the functionalities of both `views` and `serializer`.
+
+- `ViewSet` classes are almost the same thing as View classes, except that they provide operations such as `retrieve`, or `update`, and not method handlers such as `get` or `put`.
+
+- A `ViewSet` class is only bound to a set of method handlers at the last moment, when it is instantiated into a set of views, typically by using a Router class which handles the complexities of defining the URL conf for you.
+
+**Implementation of Viewset** :
+
+<img src="./public/Pic-4.png" />
