@@ -184,6 +184,12 @@ Example : http://127.0.0.1:8000/v1/students/
 
 - Pagination can be implemented in 2 ways, i.e Global pagination and Custom pagination.
 
+- Pagination is only performed automatically if you're using the generic views or viewsets. 
+
+- If you're using a regular `APIView`, you'll need to call into the pagination API yourself to ensure you return a paginated response.
+
+- Pagination can be turned off by setting the pagination class to `None`.
+
 ### Pagination classes :
 
 1. `PageNumberPagination` : 
@@ -222,3 +228,45 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2 # Whatever the number you want
 }
 ```
+
+### Custom Pagination
+
+- We can have one type of global pagination and can have different pagination for the different apps.
+
+- Create a `paginations.py` file inside the app you want to have a custom pagination and define the configuration of either `PageNumberPagination` or `LimitOffsetPagination`.
+
+**Configuration of `PageNumberPagination`** :
+
+- The `PageNumberPagination` class includes a number of attributes that may be overridden to modify the pagination style.
+
+- To set these attributes you should override the `PageNumberPagination` class, and then enable your custom pagination class as above.
+
+    - `django_paginator_class` - The Django Paginator class to use. Default is django.core.paginator.Paginator, which should be fine for most use cases.
+
+    - `page_size` - A numeric value indicating the page size. If set, this overrides the PAGE_SIZE setting. Defaults to the same value as the PAGE_SIZE settings key.
+
+    - `page_query_param` - A string value indicating the name of the query parameter to use for the pagination control.
+
+    - `page_size_query_param` - If set, this is a string value indicating the name of a query parameter that allows the client to set the page size on a per-request basis. Defaults to None, indicating that the client may not control the requested page size.
+
+    - `max_page_size` - If set, this is a numeric value indicating the maximum allowable requested page size. This attribute is only valid if page_size_query_param is also set.
+
+    - `last_page_strings` - A list or tuple of string values indicating values that may be used with the page_query_param to request the final page in the set. Defaults to ('last',)
+
+    - `template` - The name of a template to use when rendering pagination controls in the browsable API. May be overridden to modify the rendering style, or set to None to disable HTML pagination controls completely. Defaults to "rest_framework/pagination/numbers.html".
+
+**Configuration of `LimitOffsetPagination`** :
+
+- The `LimitOffsetPagination` class includes a number of attributes that may be overridden to modify the pagination style.
+
+- To set these attributes you should override the `LimitOffsetPagination` class, and then enable your custom pagination class as above.
+
+    - `default_limit` - A numeric value indicating the limit to use if one is not provided by the client in a query parameter. Defaults to the same value as the `PAGE_SIZE` settings key.
+
+    - `limit_query_param` - A string value indicating the name of the "limit" query parameter. Defaults to 'limit'.
+
+    - `offset_query_param` - A string value indicating the name of the "offset" query parameter. Defaults to 'offset'.
+
+    - `max_limit` - If set this is a numeric value indicating the maximum allowable limit that may be requested by the client. Defaults to None.
+
+    - `template` - The name of a template to use when rendering pagination controls in the browsable API. May be overridden to modify the rendering style, or set to None to disable HTML pagination controls completely. Defaults to `"rest_framework/pagination/numbers.html"`.

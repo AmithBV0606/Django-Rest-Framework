@@ -17,6 +17,8 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import mixins, generics, viewsets
 
+from .paginations import CustomPagination 
+
 # Students database operation
 
 # Static Data JSON response :
@@ -228,6 +230,7 @@ class EmployeeViewset(viewsets.ViewSet):
 class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    pagination_class = CustomPagination
 
 # ______________________________________________________________________
 
