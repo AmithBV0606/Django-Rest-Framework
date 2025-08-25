@@ -22,4 +22,8 @@ urlpatterns = [
 
     # Routers :
     path('', include(router.urls)),
+
+    # Blog and Commnets(Non-Primary) :
+    path('blogs/', views.BlogsView.as_view()),
+    path('comments/', views.CommentsView.as_view()),
 ]

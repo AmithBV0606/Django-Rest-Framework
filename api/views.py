@@ -1,4 +1,6 @@
 from django.http import JsonResponse
+from blogs.models import Blog, Comment
+from blogs.serializers import BlogSerializer, CommentSerializer
 from students.models import Student
 
 
@@ -226,3 +228,14 @@ class EmployeeViewset(viewsets.ViewSet):
 class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+
+# ______________________________________________________________________
+
+# Bolgs app operations :
+class BlogsView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class CommentsView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
