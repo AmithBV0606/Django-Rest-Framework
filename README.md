@@ -177,3 +177,5 @@ Example : http://127.0.0.1:8000/v1/students/
 **Implementation of Viewset** :
 
 <img src="./public/Pic-4.png" />
+
+### ModelViewsets :

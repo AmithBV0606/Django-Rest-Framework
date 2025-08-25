@@ -187,6 +187,7 @@ class EmployeeDetails(generics.RetrieveUpdateDestroyAPIView):
 # ______________________________________________________________________
 
 # Viewset (Doesn't make any sense!!!)
+"""
 class EmployeeViewset(viewsets.ViewSet):
     def list(self, request):
         queryset = Employee.objects.all()
@@ -217,3 +218,11 @@ class EmployeeViewset(viewsets.ViewSet):
         employee = get_object_or_404(Employee, pk=pk)
         employee.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+"""
+
+# ______________________________________________________________________
+
+# Model Viewsets : This will handle both primary and non-primary key based operation 
+class EmployeeViewset(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
