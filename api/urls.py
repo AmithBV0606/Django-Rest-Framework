@@ -1,5 +1,11 @@
 from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
+
+# Routers (Viewsets) :
+router = DefaultRouter()
+router.register('employees', views.EmployeeViewset, basename='employee') 
+# No need of forward slash
 
 urlpatterns = [
     # To get all the students at once :
@@ -9,8 +15,11 @@ urlpatterns = [
     path('students/<int:pk>/', views.studentDetailView),
 
     # Employee App based routes :
-    path('employees/', views.Employees.as_view()),
+    # path('employees/', views.Employees.as_view()),
 
     # To get an individual employee at once :
-    path('employees/<int:pk>', views.EmployeeDetails.as_view())
+    # path('employees/<int:pk>', views.EmployeeDetails.as_view())
+
+    # Routers :
+    path('', include(router.urls)),
 ]

@@ -12,7 +12,7 @@ from .serializers import EmployeeSerializer, StudentSerializer
 
 from django.http import Http404
 
-from rest_framework import mixins, generics
+from rest_framework import mixins, generics, viewsets
 
 # Students database operation
 
@@ -170,6 +170,7 @@ class EmployeeDetails(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins
 # ______________________________________________________________________
 
 # Generics
+"""
 # class Employees(generics.ListAPIView, generics.CreateAPIView):
 class Employees(generics.ListCreateAPIView):
     queryset = Employee.objects.all()
@@ -180,3 +181,20 @@ class EmployeeDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     lookup_field = 'pk'
+"""
+
+# ______________________________________________________________________
+
+# Viewset (Doesn't make any sense!!!)
+class EmployeeViewset(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Employee.objects.all()
+        serializer = EmployeeSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = EmployeeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
