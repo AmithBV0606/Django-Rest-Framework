@@ -11,6 +11,7 @@ from employees.models import Employee
 from .serializers import EmployeeSerializer, StudentSerializer
 
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 
 from rest_framework import mixins, generics, viewsets
 
@@ -198,3 +199,8 @@ class EmployeeViewset(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+
+    def retrieve(self, request, pk=None):
+        employee = get_object_or_404(Employee, pk=pk)
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data)
