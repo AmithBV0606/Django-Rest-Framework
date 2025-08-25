@@ -178,4 +178,25 @@ Example : http://127.0.0.1:8000/v1/students/
 
 <img src="./public/Pic-4.png" />
 
-### ModelViewsets :
+### Pagination :
+
+- Django provides a few classes that help you manage paginated data – that is, data that’s split across several pages, with “Previous/Next” links.
+
+- Pagination can be implemented in 2 ways, i.e Global pagination and Custom pagination.
+
+### Pagination classes :
+
+1. `PageNumberPagination` : 
+    - /blogs/?page=10 => page_size = 10 => 10 records in a single page.
+    - Takes a page_size parameters and returns the response accordingly.
+
+2. `LimitOffsetPagination` : 
+    - /blogs/?limit=10&offset=0
+    - `Limit` parameter controls how many items you want to see in a single page.
+    - `Offset` parameter tells the API where to start fetching the items from.
+
+For example :
+
+    If offset=0, you get the first 10 blogs (items 1-10).  /blogs/?limit=10&offset=0
+    If offset=10, you get the next 10 blogs (items 11-20). /blogs/?limit=10&offset=10
+    If offset=90, you get the last 10 blogs (items 91-100). /blogs/?limit=10&offset=90
