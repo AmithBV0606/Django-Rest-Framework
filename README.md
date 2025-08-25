@@ -200,3 +200,25 @@ For example :
     If offset=0, you get the first 10 blogs (items 1-10).  /blogs/?limit=10&offset=0
     If offset=10, you get the next 10 blogs (items 11-20). /blogs/?limit=10&offset=10
     If offset=90, you get the last 10 blogs (items 91-100). /blogs/?limit=10&offset=90
+
+### Global Pagination :
+
+- Automatically works for all of the views, if you're using generics or viewsets.
+
+- Add the following to the `settings.py` file : 
+
+1. PageNumberPagination :
+```py
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2 # Whatever the number you want
+}
+```
+
+2. LimitOffsetPagination :
+```py
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2 # Whatever the number you want
+}
+```
