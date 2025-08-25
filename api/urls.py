@@ -26,4 +26,8 @@ urlpatterns = [
     # Blog and Commnets(Non-Primary) :
     path('blogs/', views.BlogsView.as_view()),
     path('comments/', views.CommentsView.as_view()),
+
+    # Primary key :
+    path('blogs/<int:pk>/', views.BlogsDetailsView.as_view()),
+    path('comments/<int:pk>/', views.CommentsDetailsView.as_view()),
 ]
