@@ -21,7 +21,7 @@ from .paginations import CustomPagination
 
 from .filters import EmployeeFilter
 
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 # Students database operation
 
@@ -248,9 +248,11 @@ class EmployeeViewset(viewsets.ModelViewSet):
 class BlogsView(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['blog_title', 'blog_body']
     # search_fields = ['^blog_title'] # To search a blog that starts with specific word
+
+    ordering_fields = ['id']
 
 class CommentsView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
