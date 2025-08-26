@@ -234,6 +234,10 @@ class EmployeeViewset(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
     pagination_class = CustomPagination
 
+    # Default Filtering : Case Sensitive
+    # filterset_fields = ['designation']
+
+    # Custom Filtering : Case insensitive
     filterset_class = EmployeeFilter
 
 # ______________________________________________________________________
