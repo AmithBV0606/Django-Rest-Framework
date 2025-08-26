@@ -21,6 +21,8 @@ from .paginations import CustomPagination
 
 from .filters import EmployeeFilter
 
+from rest_framework.filters import SearchFilter
+
 # Students database operation
 
 # Static Data JSON response :
@@ -246,6 +248,9 @@ class EmployeeViewset(viewsets.ModelViewSet):
 class BlogsView(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['blog_title', 'blog_body']
+    # search_fields = ['^blog_title'] # To search a blog that starts with specific word
 
 class CommentsView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
