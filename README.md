@@ -273,6 +273,8 @@ REST_FRAMEWORK = {
 
 ### Filtering :
 
+- To filter the data in the database according to certain fields and look ups.
+
 - The root QuerySet provided by the Manager describes all objects in the database table. Usually, though, you'll need to select only a subset of the complete set of objects.
 
 - The default behavior of REST framework's generic list views is to return the entire queryset for a model manager. Often you will want your API to restrict the items that are returned by the queryset.

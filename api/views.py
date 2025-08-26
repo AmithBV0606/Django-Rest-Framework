@@ -19,6 +19,8 @@ from rest_framework import mixins, generics, viewsets
 
 from .paginations import CustomPagination 
 
+from .filters import EmployeeFilter
+
 # Students database operation
 
 # Static Data JSON response :
@@ -231,7 +233,8 @@ class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     pagination_class = CustomPagination
-    filterset_fields = ['designation']
+
+    filterset_class = EmployeeFilter
 
 # ______________________________________________________________________
 
